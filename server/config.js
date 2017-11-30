@@ -7,11 +7,11 @@ var config = {
   'rate_limit': 5000,
 
   // mysql配置
-  'mysql_host': '10.1.2.215',
-  'mysql_port': 3307,
+  'mysql_host': 'localhost',
+  'mysql_port': 3306,
   'mysql_user': 'root',
   'mysql_password': '',
-  'mysql_db': 'de_adt',
+  'mysql_db': 'database',
 
   //redis配置
   'redis_host': 'localhost',
