@@ -22,10 +22,11 @@ router.post('/login',
 
 router.post('/logout',
   function(req, res){
-    req.logout();
-    req.session.destroy();
     //console.log(req.user)
-    res.redirect('/');
+    req.logout();
+    req.session.destroy(function (err) {
+      res.redirect('/');
+    });
   });
 
 router.post('/upload',
