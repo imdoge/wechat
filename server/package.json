@@ -1,5 +1,5 @@
 {
-  "name": "wechat",
+  "name": "imdoge-wechat",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -30,6 +30,7 @@
     "passport-local": "^1.0.0",
     "serve-favicon": "~2.4.5",
     "superagent": "^3.8.1",
+    "wechat": "^2.1.0",
     "winston": "^3.0.0-rc1",
     "xss": "^0.3.4"
   }
