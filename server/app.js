@@ -5,38 +5,24 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-var passport = require('passport');
 var RedisStore = require('connect-redis')(session);
-var csurf = require('csurf');
 var cors       = require('cors')
 var validator  = require('express-validator');
-var RateLimit = require('express-rate-limit');
-var compression = require('compression');
 var helmet = require('helmet');
+var wechat = require('wechat');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+var wechatMsg = require('./routes/wechat');
 
 var config = require('./config');
-var { isLoggedIn } = require('./middlewares/auth');
 
 var app = express();
-
-var tenYears = 10 * 365 * 24 * 3600 * 1000;
-var limiter = new RateLimit({
-  windowMs: config.rate_limit_ms || 3600000,
-  max: config.rate_limit || 5000, // limit each IP to X requests per windowMs
-  delayMs: 0 // disable delaying - full speed until the max limit is reached
-});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
 //gzip,security
-app.use(compression());
-app.use(helmet());
-app.use(limiter);
+//app.use(helmet());
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -44,11 +30,6 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-
-app.use('/css', express.static(path.join(__dirname, 'public/stylesheets'), { maxAge: tenYears }));
-app.use('/js', express.static(path.join(__dirname, 'public/javascript'), { maxAge: tenYears }));
-app.use(express.static(path.join(__dirname, 'public')));
-//app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use(session({
   name: 'sid',
@@ -66,27 +47,14 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }));
-app.use(passport.initialize());
-app.use(passport.session());
-
-//setup passport
-require('./passport')();
 
 //app.use(cors());
-app.use(validator());
-app.use('/v', isLoggedIn);
-app.use('/v', csurf({ cookie: true }));
-app.use('/v', function (req, res, next) {
-  res.locals._csrf = req.csrfToken ? req.csrfToken() : '';
-  next();
-});
+//app.use(validator());
 
-//setup routes
-app.use('/', index);
-app.use('/users', users);
-app.get('*', function (req, res) {
-  res.send('404');
-})
+app.use('/', wechat({
+  token: 'token',
+  appid: 'appid',
+}, wechatMsg));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

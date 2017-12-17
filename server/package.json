@@ -1,6 +1,6 @@
 {
-  "name": "node-seed",
-  "version": "0.0.0",
+  "name": "wechat",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
