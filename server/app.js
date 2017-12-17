@@ -49,8 +49,8 @@ app.use(session({
 }));
 
 app.use('/', wechat({
-  token: 'token',
-  appid: 'appid',
+  token: 'ipedixmxk',
+  appid: 'wx2d2813c1c0dfd7fc',
 }, wechatMsg));
 
 // catch 404 and forward to error handler

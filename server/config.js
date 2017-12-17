@@ -1,7 +1,7 @@
 var config = {
   // node配置
-  'listen_port': 3000,
-  'session_secret': 'NUqIoqRSS0NmOTaq3TAh-vzzXWiMgQbQ',
+  'listen_port': 3333,
+  'session_secret': 'NUqIVqRtS0NmOTaq3TAh-vzzXWiMgQbQ',
   'session_max_age': 24 * 60 * 60 * 1000,
   'rate_limit_ms': 60 * 60 * 1000,
   'rate_limit': 5000,
