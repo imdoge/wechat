@@ -22,7 +22,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
 //gzip,security
-//app.use(helmet());
+app.use(helmet());
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -47,9 +47,6 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }));
-
-//app.use(cors());
-//app.use(validator());
 
 app.use('/', wechat({
   token: 'ipedixmxk',
